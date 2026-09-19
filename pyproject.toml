@@ -1,0 +1,43 @@
+[build-system]
+requires = ["hatchling>=1.21"]
+build-backend = "hatchling.build"
+
+[project]
+name = "jusi-gigacode"
+version = "0.1.0"
+description = "GigaCode exact-provider plugin for the Jusi ACP family"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "notawhaleble" }]
+keywords = ["acp", "gigacode", "jusi", "jupyter", "agent"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Framework :: Jupyter",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+  "jusi-acp>=0.1.0,<0.2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.urls]
+Repository = "https://github.com/notawhaleble/jusi-gigacode"
+
+[project.entry-points."jusi.plugins.v1"]
+gigacode = "jusi_gigacode.catalog:catalog_entry"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/jusi_gigacode"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "../jusi-acp/src"]
+
