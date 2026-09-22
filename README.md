@@ -42,8 +42,9 @@ Then run:
 Inspect the project and implement the requested change.
 ```
 
-The provider launches `gigacode --acp`. Until a direct GigaCode handshake is
-available for conformance testing, GigaCode is treated as a Qwen Code fork.
+The provider launches `gigacode --acp`. A live GigaCode handshake has confirmed
+ACP protocol version 1, the browser-backed `gigacode` authentication method,
+session load/resume support, and HTTP/SSE MCP support.
 
 Provider-specific alias options are:
 
@@ -53,9 +54,9 @@ Provider-specific alias options are:
   ACP permission requests to reach the interactive Jusi client.
 - `arguments`: an array of additional command-line arguments.
 - `environment`: environment-variable overrides for the GigaCode process.
-- `auth_method`: ACP authentication method ID. It defaults to `qwen-oauth`;
-  set it to the ID advertised by GigaCode, or to an empty string to skip the
-  proactive authentication call.
+- `auth_method`: ACP authentication method ID. It defaults to `gigacode`, as
+  advertised by GigaCode, or may be set to an empty string to skip the proactive
+  authentication call.
 
 The executable inherits the target environment, including desktop/session
 variables used by browser launchers. With the default authentication method,
@@ -79,10 +80,11 @@ Follow-up cells can use `/mode ID`, `/config ID VALUE`, `/auth METHOD_ID`, and
 `/cancel`. Slash commands advertised by GigaCode are also completed and sent as
 ordinary ACP prompts.
 
-## GigaCode compatibility probe
+## Verified ACP handshake
 
-The first live run should verify the authentication method ID and ACP protocol
-version. If the default method is wrong, capture GigaCode's `initialize`
-response—especially `protocolVersion`, `authMethods`, and `agentCapabilities`—
-and configure the advertised method temporarily with `auth_method`.
-
+GigaCode identifies its agent implementation as `qwen-code` with the title
+`GigaCode`. It advertises authentication method ID `gigacode`; authentication is
+handled by the GigaCode backend through its browser flow. The initialize call
+waits for that flow to finish, after which `jusi-acp` completes ACP
+authentication, establishes the session, and submits the original cell body
+without requiring the user to repeat it.

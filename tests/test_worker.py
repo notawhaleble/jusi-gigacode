@@ -13,7 +13,7 @@ def test_default_launch_uses_acp_and_browser_auth(tmp_path: Path, monkeypatch) -
     launch = resolve_launch({"provider": "gigacode", "path": str(tmp_path)}, tmp_path)
     assert launch.argv == ("/tools/gigacode", "--acp")
     assert launch.cwd == tmp_path
-    assert launch.auth_method == "qwen-oauth"
+    assert launch.auth_method == "gigacode"
 
 
 def test_launch_maps_provider_options(tmp_path: Path, monkeypatch) -> None:  # type: ignore[no-untyped-def]

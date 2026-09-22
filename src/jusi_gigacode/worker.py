@@ -47,10 +47,10 @@ def resolve_launch(configuration: Mapping[str, Any], cwd: Path) -> AgentLaunch:
             raise ValueError("environment names must be non-empty and cannot contain '='")
         clean_environment[clean_key] = clean_value
 
-    # GigaCode is treated as a Qwen Code fork until its ACP handshake can be
-    # inspected directly. Set auth_method = "" to disable automatic ACP auth,
-    # or override it if GigaCode advertises another method ID.
-    auth_method = _string(configuration.get("auth_method", "qwen-oauth"), "auth_method")
+    # GigaCode advertises this browser-backed method in its ACP v1 initialize
+    # response. Set auth_method = "" only when proactive authentication should
+    # be skipped for an already authenticated or specially configured install.
+    auth_method = _string(configuration.get("auth_method", "gigacode"), "auth_method")
     return AgentLaunch(tuple(argv), cwd, clean_environment, auth_method)
 
 
@@ -91,4 +91,3 @@ PROVIDER = ProviderSpec("gigacode", __version__, resolve_launch)
 
 def create_worker(context: Any) -> ACPWorker:
     return ACPWorker(context, PROVIDER)
-
