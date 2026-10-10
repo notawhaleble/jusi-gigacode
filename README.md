@@ -3,13 +3,14 @@
 `jusi-gigacode` is the exact GigaCode provider for the shared Jusi ACP family.
 It launches GigaCode over Agent Client Protocol while `jusi-acp` supplies the
 `%%acp` magic, interactive VisiData application, permission choices, durable
-follow-ups, cancellation, session controls, completion, and editor actions.
+follow-ups, cancellation, session controls, completion, editor actions, and attention notifications.
 
 ## Installation
 
 Install this package, `jusi-acp`, and Jusi in the Python environment used by the
 target Jupyter kernel. The `gigacode` executable must be available on that
-target's `PATH`.
+target's `PATH`. Attention support requires `jusi-acp>=0.1.3` and
+Jusi `>=1.0.5`, installed automatically through the package dependencies.
 
 ```bash
 pip install jusi-gigacode

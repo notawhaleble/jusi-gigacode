@@ -16,7 +16,7 @@ def catalog_entry() -> dict[str, Any]:
         "families": [{
             "family_id": "acp",
             "magic_name": "acp",
-            "capabilities": ["execute", "followup", "complete", "interrupt", "editor_actions"],
+            "capabilities": ["execute", "followup", "complete", "interrupt", "editor_actions", "attention"],
             "presentation": {"syntax": "markdown", "indent": "markdown"},
         }],
         "kernel_extensions": ["jusi_gigacode.kernel"],
